@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+data/pubchem_cache/
+data/mb/
+*.parquet
+tools/headless-browser/out/
+tools/headless-browser/state/
+tools/headless-browser/ws_endpoint.txt
+tools/headless-browser/server.log
+# NEVER commit competition data
+train.parquet
+test.parquet
+submission.csv

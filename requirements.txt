@@ -1,0 +1,6 @@
+rdkit>=2026.3
+numpy
+pandas
+scipy
+requests
+matchms>=0.33
