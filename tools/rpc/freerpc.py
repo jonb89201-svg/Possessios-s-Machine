@@ -10,6 +10,12 @@ Fossilized lessons (failed experiments, baked in so no fresh agent re-pays them)
 - drpc free tier LIES ("over 10000") once quota-limited -> excluded from logs; and more generally:
   NEVER trust an EMPTY getLogs result until the same endpoint returned non-empty on a
   known-positive window. An empty that isn't verified is HYPOTHESIS, not MEASURED.
+
+FRONTIER (v2 — where a fresh frame should push this):
+- honor the endpoint's suggested sub-range in the -32005 `data` field instead of blind bisection
+- add chains (Arbitrum/Optimism/etc.) and methods (eth_getBlockByNumber, getTransactionReceipt, batch)
+- parallelize ranged getLogs; cache blockNumber; add an archive fallback for old log ranges
+- per-endpoint result-cap autodetection instead of the hardcoded 10_000
 """
 import requests
 
