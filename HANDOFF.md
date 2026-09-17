@@ -32,3 +32,22 @@ well-audited wall; file ONLY live-reachable + novel (no malicious-token/staged-p
 
 ## Next concrete step
 Kaggle token present → CASMI full build. Else → 3F Grunt audit pass.
+
+## UPDATE 2026-09-17 — real data in hand, real-scale engine proven
+Kaggle token worked. Data (EPHEMERAL, never commit): test.parquet (1213 spectra/400 mols),
+train.parquet (2,539,608 spectra / ~275k structures, 3.03GB). Schema matches spec; harness reads it.
+Test adducts: [M+H]+ 959, [M-H]- 193, [M+CH2O2-H]- 31, [M+Na]+ 22, rest few. Modes: pos 987 / neg 226.
+
+- `src/streaming_analog.py` — MEASURED: streams all 2.5M train, blocks by 20ppm precursor, memory-bounded
+  (never hold train; OOM'd at 0.02Da-absolute + list accumulation — walls baked), 277s, found candidates
+  for 400/400 test molecules, emits submission.csv. This is the real-scale analog prong.
+- WALL: `kaggle competitions submit` (CSV via API) -> 403 Forbidden. This is a CODE competition:
+  scoring is NOTEBOOK-ONLY (and identity verification may also gate it). To actually score/submit:
+  push a Kaggle Notebook (`kaggle kernels push`) that attaches the competition data, runs with internet
+  OFF, writes submission.csv. That's the real submission path — build it (v2).
+- Local scoring impossible (test labels hidden) -> use TRAIN-internal CV for a real MRR number.
+
+### Next concrete steps (in priority)
+1. Train-CV MRR (hold out train molecules w/ siblings, analog vs rest) -> real number vs public SOTA 0.341.
+2. Notebook submission harness (kaggle kernels push) — the only path to a leaderboard score.
+3. Add formula→local-COCONUT retrieval (class 2) + de-novo (class 3); merge prongs; dedup by canon_ik14.
