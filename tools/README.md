@@ -17,6 +17,7 @@ estate a code agent leaves behind, not the finished tasks.
 ## Inventory
 - `headless-browser/` — JS/auth-gated page fetcher (Playwright over WebSocket, ignoreHTTPSErrors).
 - `rpc/freerpc.py` — read-only on-chain reads over FREE endpoints only (QuickNode excluded), walls baked.
+- `srcpull/srcpull.py` — pull deployed VERIFIED source (G0.6); follows proxy→implementation; composes with `freerpc`.
 
 ## The loop
 `constraint → tool (vN: walls + test + horizon) → fresh frame sees vN's blind spots → vN+1`.
