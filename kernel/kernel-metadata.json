@@ -1,0 +1,13 @@
+{
+  "id": "REPLACE_WITH_KAGGLE_USERNAME/casmi26-analog-baseline",
+  "title": "CASMI26 analog baseline",
+  "code_file": "casmi_kernel.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "competition_sources": ["enveda-CASMI26-molecule-id-mass-spectra"],
+  "dataset_sources": [],
+  "kernel_sources": []
+}
