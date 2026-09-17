@@ -64,3 +64,9 @@ Train CV (src/cv2_analog.py, proper 2-pass: pre-load 400 queries, stream full li
   * class 3 → de-novo spectrum→SMILES generation (HF GPU; the hard tail)
   Build those next. cv_analog.py (single-pass) is a NEGATIVE result: it undercounts (0.100) due to
   ordering bias — kept as the wall (pre-load queries before streaming the library, like cv2/streaming).
+
+## UPDATE 2026-09-17 (c) — submission kernel CONFIRMED end-to-end
+kernel/casmi_kernel.py run on real data: valid submission (400/400 molecules, <=25, no nulls),
+**100.0% top-1 agreement with the matchms reference** -> the numpy reimplementation is ranking-exact
+(the ~1e-4 greedy-tie-break residual changes no rankings). Runtime 21min (fine for Kaggle 9h; numba
+speedup = v2). The kernel is submission-ready; only the notebook push + identity verification remain.
