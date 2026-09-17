@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# hb <subcmd>: up | down | status | render <url> [opts...]
+HB=/home/user/tools/headless-browser
+case "$1" in
+  up)     nohup node "$HB/server.cjs" > "$HB/server.log" 2>&1 &
+          echo "starting hb-server (pid $!)"; sleep 3; cat "$HB/server.log" ;;
+  down)   pkill -f "$HB/server.cjs" && echo "stopped" || echo "not running" ;;
+  status) if pgrep -f "$HB/server.cjs" >/dev/null; then echo "up: $(cat $HB/ws_endpoint.txt 2>/dev/null)"; else echo "down"; fi ;;
+  render) shift; node "$HB/render.cjs" "$@" ;;
+  *)      echo "usage: hb {up|down|status|render <url> [--html --shot --state f ...]}" ;;
+esac
