@@ -31,5 +31,8 @@ gnps/massbank/mona=NP reference (class-1 library).
 [x] matchms installed
 [ ] all 10 adducts in formula module (redo)
 [ ] ANALOG-PROPAGATION matcher (matchms modified-cosine) + validate on MassBank  <- NOW
-[ ] local COCONUT retrieval ; [ ] learned fingerprint + de-novo model (HF/Kaggle GPU, needs train data)
+[x] analog prong MEASURED (CV MRR 0.823 w/ sibling; ~40% of test is class-1) — SOLVED/commodity
+[ ] **class-2 formula->local COCONUT retrieval->rerank == our EDGE** (build next)
+[ ] class-3 de-novo spectrum->SMILES (HF GPU)
+[ ] Kaggle NOTEBOOK submission harness (kaggle kernels push; CSV API submit = 403, code comp)
 ## Matching: replicate RDKit TautomerEnumerator canonical -> InChIKey14 for honest local eval.

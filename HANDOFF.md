@@ -51,3 +51,16 @@ Test adducts: [M+H]+ 959, [M-H]- 193, [M+CH2O2-H]- 31, [M+Na]+ 22, rest few. Mod
 1. Train-CV MRR (hold out train molecules w/ siblings, analog vs rest) -> real number vs public SOTA 0.341.
 2. Notebook submission harness (kaggle kernels push) — the only path to a leaderboard score.
 3. Add formula→local-COCONUT retrieval (class 2) + de-novo (class 3); merge prongs; dedup by canon_ik14.
+
+## UPDATE 2026-09-17 (b) — analog prong MEASURED; the real edge is class-2/3
+Train CV (src/cv2_analog.py, proper 2-pass: pre-load 400 queries, stream full library):
+- **MRR@25 = 0.823, true structure in top-25 for 96% (382/400)** — analog prong alone.
+- CRITICAL: this OVERESTIMATES the real test. Train ≈ 9 spectra/structure, so ~all CV queries are
+  class-1 (a sibling exists) → analog trivially wins. The real TEST is a hidden 3-class mix
+  (1: has ref spectra / 2: known structure no spectra / 3: novel). Public SOTA = 0.341.
+- DERIVED: if class-1 ~0.82 and rest ~0, then 0.341 ⟹ class-1 ≈ 40% of test; class-2/3 ≈ 60%.
+- STRATEGIC PIVOT: analog is solved + a commodity everyone has. The leaderboard is WON on:
+  * class 2 → molecular-formula prediction → LOCAL COCONUT/PubChem retrieval → rerank (this is our edge)
+  * class 3 → de-novo spectrum→SMILES generation (HF GPU; the hard tail)
+  Build those next. cv_analog.py (single-pass) is a NEGATIVE result: it undercounts (0.100) due to
+  ordering bias — kept as the wall (pre-load queries before streaming the library, like cv2/streaming).
